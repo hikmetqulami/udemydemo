@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: postgres
+    password: root123
+    url: jdbc:postgresql://localhost:5432/udemydemo
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
