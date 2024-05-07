@@ -15,4 +15,6 @@ public class ImageModel {
     private byte[] imageBytes;
     @JsonIgnore
     private Long userId;
+    @JsonIgnore
+    private Long courseId;
 }

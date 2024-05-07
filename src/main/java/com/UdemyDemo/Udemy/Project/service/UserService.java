@@ -9,7 +9,7 @@ import java.security.Principal;
 
 public interface UserService {
 
-    User findById(Long id);
+    UserDto findById(Long id);
 
     void deleteAccount(String email, String password);
 
@@ -19,6 +19,9 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    User update(UserDto userDto, Principal principal);
+    UserDto update(UserDto userDto, Principal principal);
 
+    User getCurrentUser(Principal principal);
+
+    User getUserByPrincipal(Principal principal);
 }

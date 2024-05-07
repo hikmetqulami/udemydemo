@@ -2,7 +2,6 @@ package com.UdemyDemo.Udemy.Project.controller;
 
 import com.UdemyDemo.Udemy.Project.dto.ReviewDto;
 import com.UdemyDemo.Udemy.Project.service.impl.ReviewServiceImpl;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

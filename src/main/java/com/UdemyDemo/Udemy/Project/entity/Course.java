@@ -18,6 +18,7 @@ public class Course {
     private Long id;
 
     private String title;
+    private Integer likes;
 
     @OneToOne
     @JoinColumn(name = "language_id")
@@ -33,7 +34,7 @@ public class Course {
 
     @Column
     @ElementCollection(targetClass = String.class)
-    private Set<String> ratingUser = new HashSet<>();
+    private Set<String> likedUsers = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

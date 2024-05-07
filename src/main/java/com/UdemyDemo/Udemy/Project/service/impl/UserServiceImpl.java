@@ -34,9 +34,10 @@ public class UserServiceImpl implements UserService {
     private final JWTTokenProvider provider;
 
     @Override
-    public User findById(Long id) {
+    public UserDto findById(Long id) {
         return userRepository.findById(id)
                 .stream()
+                .map(userMapper::toUserDto)
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
@@ -69,7 +70,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmail(String email) {
         return userRepository.findUserByEmail(email)
-                .stream().findFirst()
+                .stream()
+                .findFirst()
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
@@ -85,21 +87,29 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public UserDto update(UserDto userDto, Principal principal) {
+        User userToUpdate = getUserByPrincipal(principal);
 
-    public User update(UserDto userDto, Principal principal) {
-        User user = getUserByPrincipal(principal);
-        user.setUsername(userDto.getUsername());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setBio(userDto.getBio());
-        return userRepository.save(user);
+        User updatedUser = userMapper.toEntity(userDto);
+
+        userToUpdate.setUsername(updatedUser.getUsername());
+        userToUpdate.setFirstName(updatedUser.getFirstName());
+        userToUpdate.setLastName(updatedUser.getLastName());
+        userToUpdate.setBio(updatedUser.getBio());
+
+        User savedUser = userRepository.save(userToUpdate);
+        return userMapper.toUserDto(savedUser);
     }
 
+
+    @Override
     public User getCurrentUser(Principal principal) {
         return getUserByEmail(principal.getName());
     }
 
-    private User getUserByPrincipal(Principal principal) {
+    @Override
+    public User getUserByPrincipal(Principal principal) {
         String username = principal.getName();
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundException("User not found with username" + username));

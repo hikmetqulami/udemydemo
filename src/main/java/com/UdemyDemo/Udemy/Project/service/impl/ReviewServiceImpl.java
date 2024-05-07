@@ -68,7 +68,7 @@ public class ReviewServiceImpl implements ReviewService {
             throw new NotFoundException("This review does not belong to the course");
         }
         review.setMessage(reviewDto.getMessage());
-        review.setStar(reviewDto.getStar());
+        review.setStar(reviewDto.getLike());
 
 
         Review updateReview = reviewRepository.save(review);
